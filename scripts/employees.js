@@ -3,6 +3,19 @@ const inquirer = require('inquirer'); //inquirer package for cli interface
 const mysql = require('mysql2'); //sql package for making sql queries
 const cTable = require('console.table'); // package for diaplaying database tables in console
 
+const info = require('../credentials/credential');
+
+const connection = mysql.createConnection(info);
+
+connection.query(
+    'DESCRIBE employee',
+    function(err, results, fields) {
+      console.log(results); // results contains rows returned by server
+      console.log(fields); // fields contains extra meta data about results, if available
+    }
+  );
+
+
 const viewEmployees = async () => {
     const wait = await inquirer.prompt([
         {
