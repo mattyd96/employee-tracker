@@ -1,0 +1,16 @@
+{
+  "name": "employee_tracker",
+  "version": "1.0.0",
+  "description": "Simple cli interface for modifying an employee database",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Matthew Durflinger",
+  "license": "MIT",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^8.2.0",
+    "mysql2": "^2.3.3"
+  }
+}
