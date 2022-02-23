@@ -1,20 +1,8 @@
 // Employee queries
 const inquirer = require('inquirer'); //inquirer package for cli interface
-const mysql = require('mysql2'); //sql package for making sql queries
 const cTable = require('console.table'); // package for diaplaying database tables in console
 
-const info = require('../credentials/credential');
-
-const connection = mysql.createConnection(info);
-
-connection.query(
-    'DESCRIBE employee',
-    function(err, results, fields) {
-      console.log(results); // results contains rows returned by server
-      console.log(fields); // fields contains extra meta data about results, if available
-    }
-  );
-
+const sql = require('./sql');
 
 const viewEmployees = async () => {
     const wait = await inquirer.prompt([
@@ -24,14 +12,14 @@ const viewEmployees = async () => {
             name: 'action',
             choices: ['All', 'By Manager', 'By Department']
         }
-    ]).then((response) => {
+    ]).then(async (response) => {
         switch (response.action) {
             case 'All':
                     //select * from Employees
                 break;
             case 'By Manager':
-                    //get input for manager
-                break;
+                    const wait = await viewEmployeeManager();
+                    return;
             case 'By Department':
                     //get input for department
                 break;
@@ -40,14 +28,14 @@ const viewEmployees = async () => {
                 break;
         }
     });
-
-    return;
 }
 
-const viewEmployeeManager = () => {
+const viewEmployeeManager = async() => {
     //make a request for managers
     //display those managers as options
-    //select employees by that manager
+    //select employees by that manage
+    const managers = await sql.getManagers();
+    console.log(managers);
 }
 
 const viewEmployeeDepartment = () => {

@@ -5,7 +5,7 @@ const handleResponse = async (response) => {
     switch (response.action) {
         case 'View Employees':
             wait = await employee.view();
-            break;
+            return wait;
     
         case 'Manage Employee':
             wait = await employee.manage();

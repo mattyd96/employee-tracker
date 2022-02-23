@@ -1,5 +1,11 @@
+const express = require('express');
 const inquirer = require('inquirer'); //inquirer package for cli interface
 const handleResponse = require('./scripts/responseHandle'); //response handler
+
+// app setup
+const app = express();
+const port = process.env.PORT || 3001;
+
 
 // Inquirer variables
 const questions = [
@@ -21,14 +27,17 @@ const questions = [
 ];
 
 // Inquirer Function
-const inquire = () => {
-    inquirer.prompt(questions).then((response) => {
-        return handleResponse.handle(response);
-    }).then(() => {inquire()});
+const inquire = async () => {
+    const response = await inquirer.prompt(questions)
+    const handledResponse = await handleResponse.handle(response);
+    inquire();
 };
 
 const init = () => {
     inquire();
 };
 
-init();
+// listen
+app.listen(port, () => {
+    init();
+});
