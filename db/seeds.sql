@@ -1,19 +1,24 @@
 USE employee_tracker_db;
 
-INSERT INTO departments (id, name)
-VALUES (1, 'first'),
-       (2, 'second'),
-       (3, 'third'),
-       (4, 'fourth');
+INSERT INTO departments (name)
+VALUES ('management'),
+       ('IT'),
+       ('Sales'),
+       ('espionage'),
+       ('security'),
+       ('buying'),
+       ('sabotage');
 
-INSERT INTO roles (id, title, salary, department_id)
-VALUES (1, 'intern', 50.5, 1),
-       (2, 'manager', 100.3, 2),
-       (3, 'engineer', 85.3, 3);
+INSERT INTO roles (title, salary, department_id)
+VALUES ('intern', 50000, 4),
+       ('manager', 100000, 1),
+       ('engineer', 85000, 7),
+       ('buyer', 85000, 6),
+       ('spy', 85000, 4);
 
 
-INSERT INTO employees(id, first_name, last_name, role_id, manager_id)
-VALUES (1, 'matt', 'a', 1, 1),
-       (2, 'matt', 'b', 2, 1),
-       (3, 'matt', 'b', 3, 1),
-       (4, 'matt', 'b', 1, 1);
+INSERT INTO employees(first_name, last_name, role_id, manager_id)
+VALUES ('matt', 'a', 1, NULL),
+       ('matt', 'b', 2, NULL),
+       ('matt', 'c', 3, 1),
+       ('matt', 'd', 1, 2);

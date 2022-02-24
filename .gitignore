@@ -1,3 +1,4 @@
 assignment
 node_modules
 credentials
+*.log
