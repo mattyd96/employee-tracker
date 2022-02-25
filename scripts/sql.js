@@ -75,15 +75,6 @@ const addEmployee = async (employee) => {
     );
 };
 
-// delete employee
-const deleteEmployee = async (id) => {
-    const resolve = await promisePool.query(
-        `
-        DELETE FROM employees WHERE id=${id}
-        `
-    );
-}
-
 //update employee
 const updateEmployee = async (field, data, id) => {
     const resolove = await promisePool.query(
@@ -113,22 +104,6 @@ const addDepartment = async (depName) => {
     );
 };
 
-const deleteDepartment = async (id) => {
-    const resolve = await promisePool.query(
-        `
-        DELETE FROM departments WHERE id=${id}
-        `
-    );
-};
-
-const deleteRow = async (table, id) => {
-    const resolve = await promisePool.query(
-        `
-        DELETE FROM ${table} WHERE id=${id}
-        `
-    );
-};
-
 //roles
 const getRoles = async () => {
     const [rows] = await promisePool.query(
@@ -146,6 +121,15 @@ const addRole = async (role) => {
         `
         INSERT INTO roles(title, salary, department_id)
         VALUES ('${role.title}', '${role.salary}', ${role.department_id})
+        `
+    );
+};
+
+// general delete function
+const deleteRow = async (table, id) => {
+    const resolve = await promisePool.query(
+        `
+        DELETE FROM ${table} WHERE id=${id}
         `
     );
 };
