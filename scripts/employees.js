@@ -95,7 +95,7 @@ const manageEmployee = async () => {
 }
 
 const addEmployee = async () => {
-    const managers = await sql.getManagers();
+    const managers = await sql.getAllEmployeesBasic();
     const managerSelect = managers.map(manager => `${manager.name}`);
 
     const roles = await sql.getRoles();
@@ -118,24 +118,23 @@ const addEmployee = async () => {
             name: "role",
             choices: roleSelect,
         },
+        {
+            type: "list",
+            message: `Who is their manager? `,
+            name: "manager",
+            choices: ['None', ...managerSelect],
+        }
     ]);
 
-    const response2 = await inquirer.prompt({
-        type: "list",
-        message: `Who is their manager? `,
-        name: "manager",
-        choices: managerSelect,
-        when: () => {return response.role !== 'manager'}
-    },);
-
-    const manager = response2 ? managers.filter(manager => manager.name === response2.manager) : null;
+    const hasManager = response.manager !== 'None';
+    const manager = hasManager ? managers.filter(manager => manager.name === response.manager) : null;
     const role = roles.filter(role => role.title === response.role);
     
     const employee = {
         first_name: response.first_name,
         last_name: response.last_name,
         role_id: role[0].id,
-        manager_id: response2.manager ? manager[0].id : null
+        manager_id: hasManager ? manager[0].id : null
     };
     let resolve = await sql.addEmployee(employee);
 };

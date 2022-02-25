@@ -26,9 +26,19 @@ const getAllEmployees = async () => {
     return rows;
 };
 
+const getAllEmployeesBasic = async () => {
+    const [rows] = await promisePool.query(
+        `SELECT id, concat(first_name, ' ', last_name) as name FROM employees`
+    );
+    return rows;
+};
+
 const getManagers = async () => {
     const [rows] = await promisePool.query(
-        "SELECT id, concat(first_name,' ', last_name) as name FROM employees WHERE manager_id IS NULL"
+        `
+        SELECT A.id, concat(A.first_name,' ', A.last_name) as name FROM employees A, employees B 
+        WHERE A.id = B.manager_id
+        `
     );
     return rows;
 };
@@ -83,6 +93,7 @@ const getRoles = async () => {
 };
 
 module.exports.getAllEmployees = getAllEmployees;
+module.exports.getAllEmployeesBasic = getAllEmployeesBasic;
 module.exports.getManagers = getManagers;
 module.exports.getManagerFilteredEmployees = getManagerFilteredEmployees;
 module.exports.getDepartmentFilteredEmployees = getDepartmentFilteredEmployees;
