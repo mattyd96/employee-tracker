@@ -89,8 +89,12 @@ const manageEmployee = async () => {
 
     if (response.action === 'Add Employee') {
         const resolved = await addEmployee();
-    } else {
+    } else if (response.action === 'Delete Employee') {
         const resolved = await deleteEmployee();
+    } else if (response.action === 'Update Employee Role') {
+        //update role
+    } else if (response.action === 'Update Employee Manager') {
+        //update manager
     }
 }
 
@@ -154,6 +158,13 @@ const deleteEmployee = async () => {
     const deleteId = response.employee[0];
     const resolve = await sql.deleteEmployee(deleteId);
 };
+
+const updateRole = async () => {
+}
+
+const updateManager = async () => {
+    const managers = await sql.getManagers();
+}
 
 module.exports.view = viewEmployees;
 module.exports.manage = manageEmployee;

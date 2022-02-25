@@ -1,4 +1,6 @@
 const employee = require('./employees');
+const role = require('./roles');
+const dep = require('./departments');
 
 const handleResponse = async (response) => {
     let wait
@@ -9,6 +11,10 @@ const handleResponse = async (response) => {
     
         case 'Manage Employee':
             wait = await employee.manage();
+            break;
+    
+        case 'View All Roles':
+            wait = await role.viewRoles();
             break;
     
         default:

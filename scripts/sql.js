@@ -107,7 +107,10 @@ const getDepartments = async () => {
 //roles
 const getRoles = async () => {
     const [rows] = await promisePool.query(
-        `SELECT * FROM roles`
+        `
+        SELECT roles.id, roles.title, departments.name as department, roles.salary  FROM roles, departments
+        WHERE roles.department_id=departments.id
+        `
     );
     return rows;
 };
@@ -119,6 +122,7 @@ module.exports.getManagerFilteredEmployees = getManagerFilteredEmployees;
 module.exports.getDepartmentFilteredEmployees = getDepartmentFilteredEmployees;
 module.exports.addEmployee = addEmployee;
 module.exports.deleteEmployee = deleteEmployee;
+module.exports.updateEmployee = updateEmployee;
 
 module.exports.getDepartments = getDepartments;
 
