@@ -90,7 +90,7 @@ const manageEmployee = async () => {
     if (response.action === 'Add Employee') {
         const resolved = await addEmployee();
     } else {
-        //delete employee
+        const resolved = await deleteEmployee();
     }
 }
 
@@ -137,6 +137,22 @@ const addEmployee = async () => {
         manager_id: hasManager ? manager[0].id : null
     };
     let resolve = await sql.addEmployee(employee);
+};
+
+const deleteEmployee = async () => {
+    const employees = await sql.getAllEmployeesBasic();
+    console.log(employees);
+    const selections = employees.map(employee => `${employee.id}. ${employee.name}`);
+
+    const response = await inquirer.prompt({
+        type: "list",
+        message: `Which employee would you like to delete? `,
+        name: "employee",
+        choices: selections
+    });
+
+    const deleteId = response.employee[0];
+    const resolve = await sql.deleteEmployee(deleteId);
 };
 
 module.exports.view = viewEmployees;

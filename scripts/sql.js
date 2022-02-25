@@ -66,7 +66,7 @@ const getDepartmentFilteredEmployees = async (parameter) => {
 
 // add employee
 const addEmployee = async (employee) => {
-    let resolve = await promisePool.query(
+    const resolve = await promisePool.query(
         `
         INSERT INTO employees(first_name, last_name, role_id, manager_id)
         VALUES ('${employee.first_name}', '${employee.last_name}', 
@@ -74,6 +74,26 @@ const addEmployee = async (employee) => {
         `
     );
 };
+
+// delete employee
+const deleteEmployee = async (id) => {
+    const resolve = await promisePool.query(
+        `
+        DELETE FROM employees WHERE id=${id}
+        `
+    );
+}
+
+//update employee
+const updateEmployee = async (field, data, id) => {
+    const resolove = await promisePool.query(
+        `
+        UPDATE employees 
+        SET ${field}=${data}
+        WHERE id=${id}
+        `
+    )
+}
 
 // departments
 
@@ -98,6 +118,7 @@ module.exports.getManagers = getManagers;
 module.exports.getManagerFilteredEmployees = getManagerFilteredEmployees;
 module.exports.getDepartmentFilteredEmployees = getDepartmentFilteredEmployees;
 module.exports.addEmployee = addEmployee;
+module.exports.deleteEmployee = deleteEmployee;
 
 module.exports.getDepartments = getDepartments;
 
