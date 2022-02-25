@@ -84,7 +84,7 @@ const manageEmployee = async () => {
         type: "list",
         message: `What would you like to do? `,
         name: "action",
-        choices: ['Add Employee', 'Delete Employee', 'Update Employee Role'],
+        choices: ['Add Employee', 'Delete Employee', 'Update Employee Role', 'Update Employee Manager'],
     });
 
     if (response.action === 'Add Employee') {
@@ -92,9 +92,9 @@ const manageEmployee = async () => {
     } else if (response.action === 'Delete Employee') {
         const resolved = await deleteEmployee();
     } else if (response.action === 'Update Employee Role') {
-        const resoloved = await updateRole();
+        const resolved = await updateRole();
     } else if (response.action === 'Update Employee Manager') {
-        //update manager
+        const resolved = await updateManager();
     }
 }
 
@@ -183,7 +183,27 @@ const updateRole = async () => {
 }
 
 const updateManager = async () => {
+    const employees = await sql.getAllEmployeesBasic();
+    const selectionsEmployee = employees.map(employee => `${employee.id}. ${employee.name}`);
+
     const managers = await sql.getManagers();
+    const selectionsManager = managers.map(manager => `${manager.id}. ${manager.name}`);
+
+    const response = await inquirer.prompt({
+        type: "list",
+        message: `Which employee would you like to update? `,
+        name: "employee",
+        choices: selectionsEmployee
+    });
+
+    const response2 = await inquirer.prompt({
+        type: "list",
+        message: `Which manager would you like to change to? `,
+        name: "manager",
+        choices: selectionsEmployee
+    });
+
+    sql.updateEmployee('manager_id', response2.manager[0], response.employee[0]);
 }
 
 module.exports.view = viewEmployees;
