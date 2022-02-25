@@ -84,7 +84,7 @@ const manageEmployee = async () => {
         type: "list",
         message: `What would you like to do? `,
         name: "action",
-        choices: ['Add Employee', 'Delete Employee'],
+        choices: ['Add Employee', 'Delete Employee', 'Update Employee Role'],
     });
 
     if (response.action === 'Add Employee') {
@@ -92,7 +92,7 @@ const manageEmployee = async () => {
     } else if (response.action === 'Delete Employee') {
         const resolved = await deleteEmployee();
     } else if (response.action === 'Update Employee Role') {
-        //update role
+        const resoloved = await updateRole();
     } else if (response.action === 'Update Employee Manager') {
         //update manager
     }
@@ -145,7 +145,6 @@ const addEmployee = async () => {
 
 const deleteEmployee = async () => {
     const employees = await sql.getAllEmployeesBasic();
-    console.log(employees);
     const selections = employees.map(employee => `${employee.id}. ${employee.name}`);
 
     const response = await inquirer.prompt({
@@ -160,6 +159,27 @@ const deleteEmployee = async () => {
 };
 
 const updateRole = async () => {
+    const employees = await sql.getAllEmployeesBasic();
+    const selectionsEmployee = employees.map(employee => `${employee.id}. ${employee.name}`);
+
+    const roles = await sql.getRoles();
+    const selectionsRole = roles.map(role => `${role.id}. ${role.title}`);
+
+    const response = await inquirer.prompt({
+        type: "list",
+        message: `Which employee would you like to update? `,
+        name: "employee",
+        choices: selectionsEmployee
+    });
+
+    const response2 = await inquirer.prompt({
+        type: "list",
+        message: `Which role would you like to change to? `,
+        name: "role",
+        choices: selectionsRole
+    });
+
+    sql.updateEmployee('role_id', response2.role[0], response.employee[0]);
 }
 
 const updateManager = async () => {
