@@ -17,6 +17,10 @@ const handleResponse = async (response) => {
             wait = await role.viewRoles();
             break;
     
+        case 'View All Departments':
+            wait = await dep.viewDepartments();
+            break;
+    
         default:
             break;
     }
