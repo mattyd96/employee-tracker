@@ -2,14 +2,16 @@
 const inquirer = require('inquirer'); //inquirer package for cli interface
 const cTable = require('console.table'); // package for diaplaying database tables in console
 
-const sql = require('./sql');
+const sql = require('./sql'); // sql query file
 
+// view all roles
 const viewRoles = async () => {
     const roles = await sql.getRoles();
     console.log('\n');
     console.table(roles);
 };
 
+// add a role
 const addRole = async () => {
     const departments = await sql.getDepartments();
     const selections = departments.map(dep => `${dep.id}. ${dep.name}`);
@@ -42,5 +44,21 @@ const addRole = async () => {
     const resolved = await sql.addRole(role);
 };
 
+//delete a role
+const deleteRole = async () => {
+    const roles = await sql.getRoles();
+    const selections = roles.map(role => `${role.id}. ${role.title}`);
+
+    const response = await inquirer.prompt({
+        type: "list",
+        message: `Which role would you like to delete? `,
+        name: "delete",
+        choices: selections
+    });
+
+    sql.deleteRow('roles', response.delete[0]);
+};
+
 module.exports.viewRoles = viewRoles;
 module.exports.addRole = addRole;
+module.exports.deleteRole = deleteRole;

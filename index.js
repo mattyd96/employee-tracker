@@ -26,13 +26,14 @@ const questions = [
     },
 ];
 
-// Inquirer Function
+// Inquirer loop
 const inquire = async () => {
     const response = await inquirer.prompt(questions)
     const handledResponse = await handleResponse.handle(response);
     inquire();
 };
 
+// INIT
 const init = () => {
     inquire();
 };

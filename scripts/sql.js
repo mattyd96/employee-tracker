@@ -119,7 +119,15 @@ const deleteDepartment = async (id) => {
         DELETE FROM departments WHERE id=${id}
         `
     );
-}
+};
+
+const deleteRow = async (table, id) => {
+    const resolve = await promisePool.query(
+        `
+        DELETE FROM ${table} WHERE id=${id}
+        `
+    );
+};
 
 //roles
 const getRoles = async () => {
@@ -158,3 +166,5 @@ module.exports.deleteDepartment = deleteDepartment;
 
 module.exports.getRoles = getRoles;
 module.exports.addRole = addRole;
+
+module.exports.deleteRow = deleteRow;
