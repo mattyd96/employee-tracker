@@ -154,8 +154,8 @@ const deleteEmployee = async () => {
         choices: selections
     });
 
-    const deleteId = response.employee[0];
-    const resolve = await sql.deleteEmployee(deleteId);
+    const [target] = response.delete.split('.');
+    sql.deleteRow('employees', target);
 };
 
 const updateRole = async () => {

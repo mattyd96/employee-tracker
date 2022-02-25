@@ -55,8 +55,9 @@ const deleteRole = async () => {
         name: "delete",
         choices: selections
     });
-
-    sql.deleteRow('roles', response.delete[0]);
+    
+    const [target] = response.delete.split('.');
+    sql.deleteRow('roles', target);
 };
 
 module.exports.viewRoles = viewRoles;
