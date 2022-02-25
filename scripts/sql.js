@@ -115,6 +115,15 @@ const getRoles = async () => {
     return rows;
 };
 
+const addRole = async (role) => {
+    const [rows] = await promisePool.query(
+        `
+        INSERT INTO roles(title, salary, department_id)
+        VALUES ('${role.title}', '${role.salary}', ${role.department_id})
+        `
+    );
+};
+
 module.exports.getAllEmployees = getAllEmployees;
 module.exports.getAllEmployeesBasic = getAllEmployeesBasic;
 module.exports.getManagers = getManagers;
@@ -128,3 +137,4 @@ module.exports.getDepartments = getDepartments;
 
 
 module.exports.getRoles = getRoles;
+module.exports.addRole = addRole;

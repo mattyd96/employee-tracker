@@ -186,9 +186,6 @@ const updateManager = async () => {
     const employees = await sql.getAllEmployeesBasic();
     const selectionsEmployee = employees.map(employee => `${employee.id}. ${employee.name}`);
 
-    const managers = await sql.getManagers();
-    const selectionsManager = managers.map(manager => `${manager.id}. ${manager.name}`);
-
     const response = await inquirer.prompt({
         type: "list",
         message: `Which employee would you like to update? `,
