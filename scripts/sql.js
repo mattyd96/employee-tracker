@@ -104,6 +104,15 @@ const getDepartments = async () => {
     return rows;
 };
 
+const addDepartment = async (depName) => {
+    const [rows] = await promisePool.query(
+        `
+        INSERT INTO departments(name)
+        VALUES ('${depName}')
+        `
+    );
+};
+
 //roles
 const getRoles = async () => {
     const [rows] = await promisePool.query(
@@ -135,6 +144,7 @@ module.exports.deleteEmployee = deleteEmployee;
 module.exports.updateEmployee = updateEmployee;
 
 module.exports.getDepartments = getDepartments;
+module.exports.addDepartment = addDepartment;
 
 
 module.exports.getRoles = getRoles;

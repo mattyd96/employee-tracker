@@ -25,6 +25,10 @@ const handleResponse = async (response) => {
             wait = await dep.viewDepartments();
             break;
     
+        case 'Add Department':
+            wait = await dep.addDepartment();
+            break;
+    
         default:
             break;
     }

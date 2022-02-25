@@ -10,4 +10,15 @@ const viewDepartments = async () => {
     console.table(departments);
 };
 
+const addDepartment = async () => {
+    const response = await inquirer.prompt({
+        type: "input",
+        message: `What is the department's name? `,
+        name: "department",
+    });
+
+    sql.addDepartment(response.department);
+};
+
 module.exports.viewDepartments = viewDepartments;
+module.exports.addDepartment = addDepartment;
