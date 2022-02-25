@@ -29,6 +29,10 @@ const handleResponse = async (response) => {
             wait = await dep.addDepartment();
             break;
     
+        case 'Delete Department':
+            wait = await dep.deleteDepartment();
+            break;
+    
         default:
             break;
     }

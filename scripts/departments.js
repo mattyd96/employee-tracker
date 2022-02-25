@@ -20,5 +20,20 @@ const addDepartment = async () => {
     sql.addDepartment(response.department);
 };
 
+const deleteDepartment = async () => {
+    const departments = await sql.getDepartments();
+    const selections = departments.map(dep => `${dep.id}. ${dep.name}`);
+
+    const response = await inquirer.prompt({
+        type: "list",
+        message: `which department do you want to delete? `,
+        name: "delete",
+        choices: selections
+    });
+
+    sql.deleteDepartment(response.delete[0]);
+};
+
 module.exports.viewDepartments = viewDepartments;
 module.exports.addDepartment = addDepartment;
+module.exports.deleteDepartment = deleteDepartment;
