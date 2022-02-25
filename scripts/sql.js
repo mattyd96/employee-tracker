@@ -110,6 +110,7 @@ const getRoles = async () => {
         `
         SELECT roles.id, roles.title, departments.name as department, roles.salary  FROM roles, departments
         WHERE roles.department_id=departments.id
+        ORDER BY id;
         `
     );
     return rows;
