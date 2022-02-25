@@ -35,8 +35,7 @@ const deleteDepartment = async () => {
     });
 
     const [target] = response.delete.split('.');
-
-    const resolved = sql.deleteRow('departments', target);
+    sql.deleteRow('departments', target);
 };
 
 module.exports.viewDepartments = viewDepartments;

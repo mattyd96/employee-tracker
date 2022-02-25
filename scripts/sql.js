@@ -140,12 +140,10 @@ module.exports.getManagers = getManagers;
 module.exports.getManagerFilteredEmployees = getManagerFilteredEmployees;
 module.exports.getDepartmentFilteredEmployees = getDepartmentFilteredEmployees;
 module.exports.addEmployee = addEmployee;
-module.exports.deleteEmployee = deleteEmployee;
 module.exports.updateEmployee = updateEmployee;
 
 module.exports.getDepartments = getDepartments;
 module.exports.addDepartment = addDepartment;
-module.exports.deleteDepartment = deleteDepartment;
 
 
 module.exports.getRoles = getRoles;
