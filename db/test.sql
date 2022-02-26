@@ -21,3 +21,8 @@
 -- AND A.role_id=roles.id
 -- AND roles.department_id=departments.id
 -- ORDER BY id;
+
+SELECT departments.name, SUM(roles.salary) AS Budget FROM employees, roles, departments
+WHERE employees.role_id = roles.id
+AND departments.id = 4
+AND roles.department_id = 4;

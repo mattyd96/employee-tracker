@@ -26,7 +26,7 @@ const questions = [
 
 // Inquirer loop
 const inquire = async () => {
-    const response = await inquirer.prompt(questions)
+    const response = await inquirer.prompt(questions);
     const handledResponse = await handleResponse.handle(response);
     inquire();
 };

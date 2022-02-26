@@ -104,6 +104,18 @@ const addDepartment = async (depName) => {
     );
 };
 
+const viewDepBudget = async (id) => {
+    const [rows] = await promisePool.query(
+        `
+        SELECT departments.name AS department, SUM(roles.salary) AS budget FROM employees, roles, departments
+        WHERE employees.role_id = roles.id
+        AND departments.id = ${id}
+        AND roles.department_id = ${id};
+        `
+    );
+    return rows;
+};
+
 //roles
 const getRoles = async () => {
     const [rows] = await promisePool.query(
@@ -144,6 +156,7 @@ module.exports.updateEmployee = updateEmployee;
 
 module.exports.getDepartments = getDepartments;
 module.exports.addDepartment = addDepartment;
+module.exports.viewDepBudget = viewDepBudget;
 
 
 module.exports.getRoles = getRoles;

@@ -11,18 +11,38 @@ const viewDepartments = async () => {
     console.table(departments);
 };
 
+// view department budget
+const viewBudget = async () => {
+    const departments = await sql.getDepartments();
+    const selections = departments.map(dep => `${dep.id}. ${dep.name}`);
+
+    const response = await inquirer.prompt({
+        type: "list",
+        message: `which department's budget do you want to view? `,
+        name: "dep",
+        choices: selections
+    });
+
+    const [target] = response.dep.split('.');
+    const result = await sql.viewDepBudget(target);
+    console.log('\n');
+    console.table(result);
+};
+
 const manageDepartments = async () => {
     const response = await inquirer.prompt({
         type: "list",
         message: `What would you like to do? `,
         name: "action",
-        choices: ['Add Department', 'Delete Department', 'Go Back To Menu'],
+        choices: ['Add Department', 'Delete Department','View Department Budget', 'Go Back To Menu'],
     });
 
     if (response.action === 'Add Department') {
         const resolved = await addDepartment();
     } else if (response.action === 'Delete Department') {
         const resolved = await deleteDepartment();
+    } else if (response.action === 'View Department Budget') {
+        const resolved = await viewBudget();
     }
 };
 
