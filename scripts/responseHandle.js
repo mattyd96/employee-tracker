@@ -17,24 +17,16 @@ const handleResponse = async (response) => {
             wait = await role.viewRoles();
             break;
     
-        case 'Add Role':
-            wait = await role.addRole();
-            break;
-    
-        case 'Delete Role':
-            wait = await role.deleteRole();
+        case 'Manage Roles':
+            wait = await role.manageRoles();
             break;
     
         case 'View All Departments':
             wait = await dep.viewDepartments();
             break;
     
-        case 'Add Department':
-            wait = await dep.addDepartment();
-            break;
-    
-        case 'Delete Department':
-            wait = await dep.deleteDepartment();
+        case 'Manage Departments':
+            wait = await dep.manageDepartments();
             break;
     
         default:

@@ -5,31 +5,32 @@ const cTable = require('console.table'); // package for diaplaying database tabl
 const sql = require('./sql');
 
 const viewEmployees = async () => {
-    const wait = await inquirer.prompt([
+    const response = await inquirer.prompt([
         {
             type: 'list',
             message: `How would you like them filtered? `,
             name: 'action',
             choices: ['All', 'By Manager', 'By Department']
         }
-    ]).then(async (response) => {
-        let resolved;
-        switch (response.action) {
-            case 'All':
-                    resolved = await sql.getAllEmployees();
-                    printEmployees(resolved);
-                    return;
-            case 'By Manager':
-                    resolved = await viewEmployeeManager();
-                    return;
-            case 'By Department':
-                    resolved = await viewEmployeeDepartment();
-                break;
-        
-            default:
-                break;
-        }
-    });
+    ]);
+    
+    let resolved;
+    switch (response.action) {
+        case 'All':
+                resolved = await sql.getAllEmployees();
+                printEmployees(resolved);
+                return;
+        case 'By Manager':
+                resolved = await viewEmployeeManager();
+                return;
+        case 'By Department':
+                resolved = await viewEmployeeDepartment();
+            break;
+    
+        default:
+            break;
+    }
+
 }
 
 const viewEmployeeManager = async() => {

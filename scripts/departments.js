@@ -11,6 +11,21 @@ const viewDepartments = async () => {
     console.table(departments);
 };
 
+const manageDepartments = async () => {
+    const response = await inquirer.prompt({
+        type: "list",
+        message: `What would you like to do? `,
+        name: "action",
+        choices: ['Add Department', 'Delete Department', 'Go Back To Menu'],
+    });
+
+    if (response.action === 'Add Department') {
+        const resolved = await addDepartment();
+    } else if (response.action === 'Delete Department') {
+        const resolved = await deleteDepartment();
+    }
+};
+
 // add a department
 const addDepartment = async () => {
     const response = await inquirer.prompt({
@@ -39,5 +54,4 @@ const deleteDepartment = async () => {
 };
 
 module.exports.viewDepartments = viewDepartments;
-module.exports.addDepartment = addDepartment;
-module.exports.deleteDepartment = deleteDepartment;
+module.exports.manageDepartments = manageDepartments;

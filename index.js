@@ -17,11 +17,9 @@ const questions = [
             "View Employees",
             "Manage Employee",
             "View All Roles",
-            "Add Role",
-            "Delete Role",
+            "Manage Roles",
             "View All Departments",
-            "Add Department",
-            "Delete Department",
+            "Manage Departments",
         ],
     },
 ];
