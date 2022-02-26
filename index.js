@@ -2,12 +2,12 @@ const express = require('express');
 const inquirer = require('inquirer'); //inquirer package for cli interface
 const handleResponse = require('./scripts/responseHandle'); //response handler
 
-// app setup
+// App Setup
 const app = express();
 const port = process.env.PORT || 3001;
 
 
-// Inquirer variables
+// Inquirer Questions
 const questions = [
     {
         type: "list",
@@ -20,14 +20,24 @@ const questions = [
             "Manage Roles",
             "View All Departments",
             "Manage Departments",
+            "Exit"
         ],
     },
 ];
 
-// Inquirer loop
+// Inquirer loop -> goes until 
 const inquire = async () => {
+    // Get action from user
     const response = await inquirer.prompt(questions);
+
+    // If Exit Selected, Exit app
+    if (response.action === 'Exit') {process.exit()}
+
+    // Handle selection
+
     const handledResponse = await handleResponse.handle(response);
+
+    // Loop
     inquire();
 };
 

@@ -1,9 +1,14 @@
 const mysql = require("mysql2"); //sql package for making sql queries
 
-const info = require("../credentials/credential");
-const pool = mysql.createPool(info.info);
-const promisePool = pool.promise();
+const info = require("../credentials/credential"); //file that holds connection credentials
+const pool = mysql.createPool(info.info); //create pool for sql database connections
+const promisePool = pool.promise(); //promise form of mysql pool
 
+
+
+//--------------------------------------------- Employee Queries --------------------------------------------//
+
+// Get all employees (verbose) -> gets all data needed for display
 const getAllEmployees = async () => {
     const [rows] = await promisePool.query(
         `
@@ -26,6 +31,7 @@ const getAllEmployees = async () => {
     return rows;
 };
 
+// Get all employees (minimal) -> list of employees for creating selection lists with enquirer
 const getAllEmployeesBasic = async () => {
     const [rows] = await promisePool.query(
         `SELECT id, concat(first_name, ' ', last_name) as name FROM employees`
@@ -33,6 +39,7 @@ const getAllEmployeesBasic = async () => {
     return rows;
 };
 
+// Get all Managers -> an employee that is designated as the manager of another
 const getManagers = async () => {
     const [rows] = await promisePool.query(
         `
@@ -43,6 +50,7 @@ const getManagers = async () => {
     return rows;
 };
 
+// Get all employees under a specified manager -> takes employee.id
 const getManagerFilteredEmployees = async (parameter) => {
     const [rows] = await promisePool.query(
         `
@@ -58,13 +66,14 @@ const getManagerFilteredEmployees = async (parameter) => {
     return rows;
 };
 
+// Get employees filtered by department -> takes in department id
 const getDepartmentFilteredEmployees = async (parameter) => {
     let rows = await getAllEmployees();
     rows = rows.filter(employee => employee.department === parameter);
     return rows;
 };
 
-// add employee
+// Add employee -> takes in employee object
 const addEmployee = async (employee) => {
     const resolve = await promisePool.query(
         `
@@ -75,7 +84,7 @@ const addEmployee = async (employee) => {
     );
 };
 
-//update employee
+// Update employee -> takes in the field to be updated, the new data, and employee id
 const updateEmployee = async (field, data, id) => {
     const resolove = await promisePool.query(
         `
@@ -86,8 +95,11 @@ const updateEmployee = async (field, data, id) => {
     )
 }
 
-// departments
 
+
+//--------------------------------------------- Department Queries --------------------------------------------//
+
+// Get all Departments
 const getDepartments = async () => {
     const [rows] = await promisePool.query(
         `SELECT * FROM departments`
@@ -95,6 +107,7 @@ const getDepartments = async () => {
     return rows;
 };
 
+// Add Department -> takes in a name string
 const addDepartment = async (depName) => {
     const [rows] = await promisePool.query(
         `
@@ -104,6 +117,7 @@ const addDepartment = async (depName) => {
     );
 };
 
+// View sum of salaries for all employees in a department -> takes in department id
 const viewDepBudget = async (id) => {
     const [rows] = await promisePool.query(
         `
@@ -116,7 +130,11 @@ const viewDepBudget = async (id) => {
     return rows;
 };
 
-//roles
+
+
+//--------------------------------------------- Role Queries --------------------------------------------//
+
+// Get all Roles for Display
 const getRoles = async () => {
     const [rows] = await promisePool.query(
         `
@@ -128,6 +146,7 @@ const getRoles = async () => {
     return rows;
 };
 
+// Add Role
 const addRole = async (role) => {
     const [rows] = await promisePool.query(
         `
@@ -137,7 +156,11 @@ const addRole = async (role) => {
     );
 };
 
-// general delete function
+
+
+//--------------------------------------------- General Queries --------------------------------------------//
+
+// Delete a Row in any table -> takes in table name and id of row
 const deleteRow = async (table, id) => {
     const resolve = await promisePool.query(
         `

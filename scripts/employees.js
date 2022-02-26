@@ -10,7 +10,7 @@ const viewEmployees = async () => {
             type: 'list',
             message: `How would you like them filtered? `,
             name: 'action',
-            choices: ['All', 'By Manager', 'By Department']
+            choices: ['All', 'By Manager', 'By Department', 'Go Back To Menu']
         }
     ]);
     
@@ -85,19 +85,25 @@ const manageEmployee = async () => {
         type: "list",
         message: `What would you like to do? `,
         name: "action",
-        choices: ['Add Employee', 'Delete Employee', 'Update Employee Role', 'Update Employee Manager'],
+        choices: [
+            "Add Employee",
+            "Delete Employee",
+            "Update Employee Role",
+            "Update Employee Manager",
+            "Go Back To Menu",
+        ],
     });
 
-    if (response.action === 'Add Employee') {
+    if (response.action === "Add Employee") {
         const resolved = await addEmployee();
-    } else if (response.action === 'Delete Employee') {
+    } else if (response.action === "Delete Employee") {
         const resolved = await deleteEmployee();
-    } else if (response.action === 'Update Employee Role') {
+    } else if (response.action === "Update Employee Role") {
         const resolved = await updateRole();
-    } else if (response.action === 'Update Employee Manager') {
+    } else if (response.action === "Update Employee Manager") {
         const resolved = await updateManager();
     }
-}
+};
 
 const addEmployee = async () => {
     const managers = await sql.getAllEmployeesBasic();

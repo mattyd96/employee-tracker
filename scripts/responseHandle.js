@@ -32,7 +32,6 @@ const handleResponse = async (response) => {
         default:
             break;
     }
-    return;
 }
 
 module.exports.handle = handleResponse;

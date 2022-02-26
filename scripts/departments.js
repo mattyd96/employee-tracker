@@ -4,31 +4,14 @@ const cTable = require('console.table'); // package for diaplaying database tabl
 
 const sql = require('./sql'); //sql query file
 
-// view all departments
+// View All Departments
 const viewDepartments = async () => {
     const departments = await sql.getDepartments();
     console.log('\n');
     console.table(departments);
 };
 
-// view department budget
-const viewBudget = async () => {
-    const departments = await sql.getDepartments();
-    const selections = departments.map(dep => `${dep.id}. ${dep.name}`);
-
-    const response = await inquirer.prompt({
-        type: "list",
-        message: `which department's budget do you want to view? `,
-        name: "dep",
-        choices: selections
-    });
-
-    const [target] = response.dep.split('.');
-    const result = await sql.viewDepBudget(target);
-    console.log('\n');
-    console.table(result);
-};
-
+// Manage Departments -> handles user choice add, delete, view budget
 const manageDepartments = async () => {
     const response = await inquirer.prompt({
         type: "list",
@@ -46,7 +29,25 @@ const manageDepartments = async () => {
     }
 };
 
-// add a department
+// View Department Budget
+const viewBudget = async () => {
+    const departments = await sql.getDepartments();
+    const selections = departments.map(dep => `${dep.id}. ${dep.name}`);
+
+    const response = await inquirer.prompt({
+        type: "list",
+        message: `which department's budget do you want to view? `,
+        name: "dep",
+        choices: selections
+    });
+
+    const [target] = response.dep.split('.');
+    const result = await sql.viewDepBudget(target);
+    console.log('\n');
+    console.table(result);
+};
+
+// Add a Department
 const addDepartment = async () => {
     const response = await inquirer.prompt({
         type: "input",
@@ -57,7 +58,7 @@ const addDepartment = async () => {
     sql.addDepartment(response.department);
 };
 
-// delete a department
+// Delete a Department
 const deleteDepartment = async () => {
     const departments = await sql.getDepartments();
     const selections = departments.map(dep => `${dep.id}. ${dep.name}`);
@@ -73,5 +74,6 @@ const deleteDepartment = async () => {
     sql.deleteRow('departments', target);
 };
 
+// Exports
 module.exports.viewDepartments = viewDepartments;
 module.exports.manageDepartments = manageDepartments;
