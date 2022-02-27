@@ -1,6 +1,7 @@
 const express = require('express');
 const inquirer = require('inquirer'); //inquirer package for cli interface
 const handleResponse = require('./scripts/responseHandle'); //response handler
+const printer = require('./scripts/print');
 
 // App Setup
 const app = express();
@@ -31,7 +32,10 @@ const inquire = async () => {
     const response = await inquirer.prompt(questions);
 
     // If Exit Selected, Exit app
-    if (response.action === 'Exit') {process.exit()}
+    if (response.action === 'Exit') {
+        printer.printOutro();
+        process.exit();
+    }
 
     // Handle selection
 
@@ -43,6 +47,7 @@ const inquire = async () => {
 
 // INIT
 const init = () => {
+    printer.printIntro();
     inquire();
 };
 
