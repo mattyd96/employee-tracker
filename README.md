@@ -2,7 +2,10 @@
 
 ## Description
 
-A simple Cli interface for querying and modifying a local employee database. It was created using node.js with enquirer and mysql2 packages to meet the following criteria below.
+A simple Cli interface for querying and modifying a local employee SQL database. It was created using node.js with 
+[Inquirer](https://www.npmjs.com/package/inquirer), 
+[console.table](https://www.npmjs.com/package/console.table) 
+and [MySQL2](https://www.npmjs.com/package/mysql2) packages to meet the following criteria below.
 
 
 ## User Story
@@ -59,6 +62,27 @@ or
 ```md
 node index.js
 ```
+
+### Commands available
+
+* Employees
+    * View Empolyees (filtered by: All, Manager, Department)
+    * Add Employee
+    * Delete Employee
+    * Update Employee Role
+    * Update Employee Manager
+
+* Roles
+    * View Roles
+    * Add Role
+    * Delete Role
+
+* Departments
+    * View Departments
+    * Add Department
+    * Delete Department
+    * View Budget of a Department (sum of all employee salaries in that department)
+
 
 ### Diagram of Database
 
