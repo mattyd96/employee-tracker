@@ -81,11 +81,11 @@ const getManagerFilteredEmployees = async (parameter) => {
         concat(B.first_name,' ', B.last_name) as manager
         FROM employees A, employees B, roles, departments
         WHERE A.manager_id=B.id
-        AND A.manager_id=${parameter}
+        AND A.manager_id=?
         AND A.role_id=roles.id
         AND roles.department_id=departments.id
         `
-    );
+    , parameter);
     return rows;
 };
 
@@ -101,10 +101,9 @@ const addEmployee = async (employee) => {
     const resolve = await promisePool.query(
         `
         INSERT INTO employees(first_name, last_name, role_id, manager_id)
-        VALUES ('${employee.first_name}', '${employee.last_name}', 
-                ${employee.role_id}, ${employee.manager_id})
+        VALUES (?, ?, ?, ?)
         `
-    );
+    ,[employee.first_name, employee.last_name, employee.role_id, employee.manager_id]);
 };
 
 // Update employee -> takes in the field to be updated, the new data, and employee id
@@ -112,10 +111,10 @@ const updateEmployee = async (field, data, id) => {
     const resolove = await promisePool.query(
         `
         UPDATE employees 
-        SET ${field}=${data}
-        WHERE id=${id}
+        SET ${field}=?
+        WHERE id=?
         `
-    )
+    ,[data, id]);
 }
 
 
@@ -135,9 +134,9 @@ const addDepartment = async (depName) => {
     const [rows] = await promisePool.query(
         `
         INSERT INTO departments(name)
-        VALUES ('${depName}')
+        VALUES (?)
         `
-    );
+    , depName);
 };
 
 // View sum of salaries for all employees in a department -> takes in department id
@@ -146,10 +145,10 @@ const viewDepBudget = async (id) => {
         `
         SELECT departments.name AS department, SUM(roles.salary) AS budget FROM employees, roles, departments
         WHERE employees.role_id = roles.id
-        AND departments.id = ${id}
-        AND roles.department_id = ${id};
+        AND departments.id = ?
+        AND roles.department_id = ?;
         `
-    );
+    ,[id, id]);
     return rows;
 };
 
@@ -174,9 +173,9 @@ const addRole = async (role) => {
     const [rows] = await promisePool.query(
         `
         INSERT INTO roles(title, salary, department_id)
-        VALUES ('${role.title}', '${role.salary}', ${role.department_id})
+        VALUES (?, ?, ?)
         `
-    );
+    ,[role.title, role.salary, role.department_id]);
 };
 
 
@@ -187,9 +186,9 @@ const addRole = async (role) => {
 const deleteRow = async (table, id) => {
     const resolve = await promisePool.query(
         `
-        DELETE FROM ${table} WHERE id=${id}
+        DELETE FROM ${table} WHERE id= ?
         `
-    );
+    ,id);
 };
 
 module.exports.getAllEmployees = getAllEmployees;
