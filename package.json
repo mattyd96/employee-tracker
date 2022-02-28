@@ -4,7 +4,8 @@
   "description": "Simple cli interface for modifying an employee database",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "start": "node index.js"
   },
   "author": "Matthew Durflinger",
   "license": "MIT",

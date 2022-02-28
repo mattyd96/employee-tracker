@@ -1,8 +1,9 @@
-# Employee Tracker
+# Employee Tracker [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Your Task
+## Description
 
-Cli interface for querying and modifying a local employee database.
+A simple Cli interface for querying and modifying a local employee database. It was created using node.js with enquirer and mysql2 packages to meet the following criteria below.
+
 
 ## User Story
 
@@ -33,3 +34,48 @@ THEN I am prompted to enter the employee’s first name, last name, role, and ma
 WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
 ```
+
+## Installation
+
+```md
+npm install
+```
+
+## Usage
+
+Before using this application you will need  to initialize and set up a connection to your own database. The database can be created using the schema file in db. A seeds file is also provided for testing.
+Connecting the database can be done in scripts/sql.js.
+
+<br>
+
+Once Set up, just start with either
+
+```md
+npm start
+```
+
+or 
+
+```md
+node index.js
+```
+
+### Diagram of Database
+
+![Database image](./assets/readme_assets/database_diagram.png)
+
+<br>
+
+### video example
+
+
+
+## License
+
+MIT
+
+## Links
+
+[My Github Account](https://github.com/mattyd96)
+
+[Email: matthewdcodes@gmail.com](mailto:matthewdcodes@gmail.com)
