@@ -1,9 +1,10 @@
-const employee = require('./employees');
-const role = require('./roles');
-const dep = require('./departments');
+const employee = require('./employees'); //employee functions
+const role = require('./roles'); // role functions
+const dep = require('./departments'); //department functions
 
+// Handle user response and delegate
 const handleResponse = async (response) => {
-    let wait
+    let wait;
     switch (response.action) {
         case 'View Employees':
             wait = await employee.view();

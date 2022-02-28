@@ -15,7 +15,7 @@ const viewDepartments = async () => {
 const manageDepartments = async () => {
     const response = await inquirer.prompt({
         type: "list",
-        message: `What would you like to do? `,
+        message: `Select Action `,
         name: "action",
         choices: ['Add Department', 'Delete Department','View Department Budget', 'Go Back To Menu'],
     });
@@ -56,6 +56,7 @@ const addDepartment = async () => {
     });
 
     sql.addDepartment(response.department);
+    console.log(`  Added ${response.department} to departments\n`);
 };
 
 // Delete a Department
@@ -70,8 +71,9 @@ const deleteDepartment = async () => {
         choices: selections
     });
 
-    const [target] = response.delete.split('.');
+    const [target, name] = response.delete.split('.');
     sql.deleteRow('departments', target);
+    console.log(`  Deleted${name} from departments\n`)
 };
 
 // Exports

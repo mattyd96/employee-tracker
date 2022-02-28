@@ -15,7 +15,7 @@ const viewRoles = async () => {
 const manageRoles = async () => {
     const response = await inquirer.prompt({
         type: "list",
-        message: `What would you like to do? `,
+        message: `Select Action `,
         name: "action",
         choices: ['Add Role', 'Delete Role', 'Go Back To Menu'],
     });
@@ -51,13 +51,16 @@ const addRole = async () => {
         }
     ]);
 
+    const [depTarget, depName] = response.department.split('.');
+
     const role = {
         title: response.title,
         salary: response.salary,
-        department_id: response.department[0]
+        department_id: depTarget
     };
 
-    const resolved = await sql.addRole(role);
+    sql.addRole(role);
+    console.log(`  Added ${role.title} to roles\n`);
 };
 
 //delete a role
@@ -72,8 +75,9 @@ const deleteRole = async () => {
         choices: selections
     });
 
-    const [target] = response.delete.split('.');
+    const [target, name] = response.delete.split('.');
     sql.deleteRow('roles', target);
+    console.log(`  Deleted${name} from roles\n`);
 };
 
 module.exports.viewRoles = viewRoles;

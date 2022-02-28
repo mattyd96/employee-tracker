@@ -45,6 +45,7 @@ const getManagers = async () => {
         `
         SELECT A.id, concat(A.first_name,' ', A.last_name) as name FROM employees A, employees B 
         WHERE A.id = B.manager_id
+        GROUP BY A.id
         `
     );
     return rows;
