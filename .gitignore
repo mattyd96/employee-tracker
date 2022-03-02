@@ -1,4 +1,5 @@
 assignment
 node_modules
 credentials
-*.log
+.log
+.env

@@ -47,7 +47,7 @@ npm install
 ## Usage
 
 Before using this application you will need  to initialize and set up a connection to your own database. The database can be created using the schema file in db. A seeds file is also provided for testing.
-Connecting the database can be done in scripts/sql.js.
+Connecting the database can be done by modifying the .env.EXAMPLE file to match your local user settings.
 
 <br>
 

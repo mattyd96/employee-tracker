@@ -1,29 +1,16 @@
 const mysql = require("mysql2"); //sql package for making sql queries
+require('dotenv').config();
 
-/* TO SET UP YOUR OWN DATABASE
 
-configure the following object to hold your databases information and your password
-to access it.
-Then use the following command to create the pool
-You can just remove the surrounding comments here
-
+//-------------------------------------------- Connection --------------------------------------------------//
 const info = {
     host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'employee_tracker_db'
+    user: process.env.USER_NAME,
+    password: process.env.PSWRD_NAME,
+    database: process.env.DB_NAME
 }
 
 const pool = mysql.createPool(info); //create pool for sql database connections
-const promisePool = pool.promise(); //promise form of mysql pool
-
- */
-
-
-
-// Delete these three lines when using the above initialization -> these were used for development
-const info = require("../credentials/credential"); //file that holds connection credentials
-const pool = mysql.createPool(info.info); //create pool for sql database connections
 const promisePool = pool.promise(); //promise form of mysql pool
 
 

@@ -2,15 +2,16 @@
   "name": "employee_tracker",
   "version": "1.0.0",
   "description": "Simple cli interface for modifying an employee database",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "npm test",
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "author": "Matthew Durflinger",
   "license": "MIT",
   "dependencies": {
     "console.table": "^0.10.0",
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "inquirer": "^8.2.0",
     "mysql2": "^2.3.3"
